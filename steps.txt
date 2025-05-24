@@ -1,0 +1,13 @@
+docker exec -it efc10a4f7286 /bin/bash
+
+psql -u root
+
+\l       -- list all databases
+\dt      -- list tables in the current DB
+\d tblName       -- describe
+SELECT version();  -- check PostgreSQL version
+
+\q      -- quit
+
+
+psql -U root -d fitness_user_db
