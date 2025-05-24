@@ -1,3 +1,5 @@
+docker run --name postgress-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -d -p 5433:5432 postgres:15
+
 docker exec -it efc10a4f7286 /bin/bash
 
 psql -u root
@@ -11,3 +13,7 @@ SELECT version();  -- check PostgreSQL version
 
 
 psql -U root -d fitness_user_db
+
+========================================================================================================================
+docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=root mongo
+
