@@ -17,3 +17,5 @@ psql -U root -d fitness_user_db
 ========================================================================================================================
 docker run -d --name mongodb -p 27017:27017 -v mongodb_data:/data/db -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=root mongo
 
+========================================================================================================================
+http://localhost:8761/ -> eureka dashboard
