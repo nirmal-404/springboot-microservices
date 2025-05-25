@@ -4,6 +4,7 @@ import com.fitness.activityservice.dto.ActivityRequest;
 import com.fitness.activityservice.dto.ActivityResponse;
 import com.fitness.activityservice.model.Activity;
 import com.fitness.activityservice.repository.ActivityRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-
+@RequiredArgsConstructor
 public class ActivityService {
 
-    @Autowired
-    private ActivityRepository activityRepository;
+
+    private final ActivityRepository activityRepository;
+    private final UserValidationService userValidationService;
 
     public ActivityResponse trackActivity(ActivityRequest activityRequest){
+
+        boolean isValidUser = userValidationService.validateUser(activityRequest.getUserId());
+
+        if(!isValidUser){
+            throw new RuntimeException("Invalid User: " + activityRequest.getUserId());
+        }
+
         Activity activity = Activity.builder()
                 .userId(activityRequest.getUserId())
                 .type(activityRequest.getType())
@@ -38,6 +47,7 @@ public class ActivityService {
         activityResponse.setUserId(activity.getUserId());
         activityResponse.setType(activity.getType());
         activityResponse.setDuration(activity.getDuration());
+        activityResponse.setCaloriesBurnt(activity.getCaloriesBurnt());
         activityResponse.setStartTime(activity.getStartTime());
         activityResponse.setAdditionalMetrics(activity.getAdditionalMetrics());
         activityResponse.setCreatedAt(activity.getCreatedAt());
