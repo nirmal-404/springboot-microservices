@@ -19,12 +19,24 @@ public class UserService {
     public UserResponse register(RegisterRequest request) {
 
         if(userRepository.existsByEmail(request.getEmail())){
-            throw new RuntimeException("Email already exists");
+            User existingUser = userRepository.findByEmail(request.getEmail());
+
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(String.valueOf(existingUser.getId()));
+            userResponse.setKeycloakId(String.valueOf(existingUser.getKeycloakId()));
+            userResponse.setPassword(existingUser.getPassword());
+            userResponse.setEmail(existingUser.getEmail());
+            userResponse.setFirstName(existingUser.getFirstName());
+            userResponse.setLastName(existingUser.getLastName());
+            userResponse.setCreatedAt(existingUser.getCreatedAt());
+            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
+            return userResponse;
         }
 
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
+        user.setKeycloakId(request.getKeycloakId());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
 
@@ -32,6 +44,7 @@ public class UserService {
 
         UserResponse userResponse = new UserResponse();
         userResponse.setId(String.valueOf(savedUser.getId()));
+        userResponse.setKeycloakId(String.valueOf(savedUser.getKeycloakId()));
         userResponse.setPassword(savedUser.getPassword());
         userResponse.setEmail(savedUser.getEmail());
         userResponse.setFirstName(savedUser.getFirstName());
@@ -58,8 +71,8 @@ public class UserService {
         return userResponse;
     }
 
-    public Boolean existByUserId(String userId) {
-        log.info("Calling user validation API for userId : {}", userId);
-        return userRepository.existsById(userId);
+    public Boolean existsByUserId(String userId) {
+        log.info("us:75:Calling user validation API for userId : {}", userId);
+        return userRepository.existsByKeycloakId(userId);
     }
 }
