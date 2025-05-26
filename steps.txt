@@ -22,3 +22,9 @@ http://localhost:8761/ -> eureka dashboard
 
 ========================================================================================================================
 win+R services.msc  (stop rabbitmq that is locally installed)
+
+===
+http://localhost:15672/ -> rabbitMQ dashboard  guest123, guest123
+
+http://localhost:8070/ -> keycloak dashboard  admin, admin
+create realm
