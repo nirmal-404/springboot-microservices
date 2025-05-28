@@ -73,7 +73,7 @@ public class KeycloakUserSyncFilter implements WebFilter {
             registerRequest.setPassword("dummy@123123");
             registerRequest.setFirstName(claims.getStringClaim("given_name"));
             registerRequest.setLastName(claims.getStringClaim("family_name"));
-
+            log.info("getUserDetails: 76 : {}", registerRequest);
             return registerRequest;
         }catch(Exception e){
             e.printStackTrace();

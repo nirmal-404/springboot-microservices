@@ -29,7 +29,7 @@ public class ActivityService {
     private String routingKey;
 
     public ActivityResponse trackActivity(ActivityRequest activityRequest){
-
+        log.info("service : 32 activity request : {}", activityRequest);
         boolean isValidUser = userValidationService.validateUser(activityRequest.getUserId());
 
         if(!isValidUser){
